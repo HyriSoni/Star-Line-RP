@@ -1,4 +1,3 @@
-// About Modal
 const aboutModal = document.getElementById('aboutModal');
 const aboutBtn = document.getElementById('aboutBtn');
 const closeAboutModalBtn = document.getElementById('closeAboutModalBtn');

@@ -1,4 +1,3 @@
-/* Сброс */
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +12,6 @@ body {
   overflow-x: hidden;
 }
 
-/* TopBar */
 header {
   position: fixed;
   top: 0;
@@ -41,7 +39,6 @@ header nav a:hover {
   color: #00bfff;
 }
 
-/* Play Button */
 .play-button {
   display: inline-block;
   padding: 18px 48px;
@@ -70,7 +67,6 @@ header nav a:hover {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Модальное окно Discord */
 .modal {
   position: fixed;
   top: 50%;
@@ -96,7 +92,6 @@ header nav a:hover {
   user-select: auto;
 }
 
-/* TopBar внутри модалки */
 .modal-topbar {
   height: 32px;
   background: rgba(0, 0, 0, 0.6);
@@ -113,7 +108,6 @@ header nav a:hover {
   user-select: none;
 }
 
-/* Кнопка закрытия */
 .close-btn {
   background: none;
   border: none;
@@ -124,7 +118,6 @@ header nav a:hover {
   padding: 0;
 }
 
-/* Тело модалки */
 .modal-body {
   padding: 20px 16px 24px 16px;
   text-align: center;
@@ -132,7 +125,6 @@ header nav a:hover {
   line-height: 1.4;
 }
 
-/* Ссылка Discord */
 .discord-link {
   display: block;
   margin: 12px 0 20px 0;
@@ -143,7 +135,6 @@ header nav a:hover {
   user-select: text;
 }
 
-/* Кнопки действий */
 .modal-actions {
   display: flex;
   justify-content: center;
@@ -178,7 +169,6 @@ header nav a:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* About Modal */
 .about-modal {
   position: fixed;
   top: 50%;
@@ -206,7 +196,6 @@ header nav a:hover {
   pointer-events: auto;
 }
 
-/* Close Button */
 .about-close-btn {
   position: absolute;
   top: 16px;
@@ -235,7 +224,6 @@ header nav a:hover {
   margin-bottom: 12px;
 }
 
-/* Play Modal */
 #playModal {
   position: fixed;
   top: 50%;
@@ -264,12 +252,10 @@ header nav a:hover {
   user-select: auto;
 }
 
-/* Play Modal Body */
 .play-modal-body {
   padding: 20px;
 }
 
-/* Инструкция */
 .instruction {
   padding: 20px;
   background: rgba(30, 30, 30, 0.8);
@@ -293,14 +279,12 @@ header nav a:hover {
   margin-bottom: 6px;
 }
 
-/* Блоки для скачивания */
 .download-blocks {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: 20px;
 }
 
-/* Общий стиль блока */
 .download-block {
   display: flex;
   flex-direction: row;
@@ -349,12 +333,10 @@ header nav a:hover {
   background: #0095d5;
 }
 
-/* Preset block на 2 колонки */
 .download-block.preset {
   grid-column: span 2;
 }
 
-/* TopBar PlayModal */
 #playModal .modal-topbar {
   height: 40px;
   background: rgba(0, 0, 0, 0.6);
@@ -371,7 +353,6 @@ header nav a:hover {
   user-select: none;
 }
 
-/* Кнопка закрытия */
 #playModal .close-btn {
   font-size: 24px;
   color: #00bfff;
