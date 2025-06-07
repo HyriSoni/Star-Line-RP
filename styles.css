@@ -1,0 +1,380 @@
+/* Сброс */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background: url('your-image.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* TopBar */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 6px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  height: 32px;
+}
+
+header nav a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+header nav a:hover {
+  color: #00bfff;
+}
+
+/* Play Button */
+.play-button {
+  display: inline-block;
+  padding: 18px 48px;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #ffffff;
+  background: rgba(0, 191, 255, 0.8);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  animation: fadeInUp 1.5s ease;
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+}
+
+.play-button:hover {
+  background: rgba(0, 191, 255, 1);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.8);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Модальное окно Discord */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 0 25px #00bfff;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+  color: white;
+  user-select: none;
+}
+
+.modal.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+  user-select: auto;
+}
+
+/* TopBar внутри модалки */
+.modal-topbar {
+  height: 32px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 14px;
+  color: #00bfff;
+  user-select: none;
+}
+
+/* Кнопка закрытия */
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #00bfff;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+/* Тело модалки */
+.modal-body {
+  padding: 20px 16px 24px 16px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Ссылка Discord */
+.discord-link {
+  display: block;
+  margin: 12px 0 20px 0;
+  font-weight: 600;
+  color: #00bfff;
+  text-decoration: none;
+  word-break: break-all;
+  user-select: text;
+}
+
+/* Кнопки действий */
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.modal-actions button {
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#goToDiscord {
+  background-color: #00bfff;
+  color: #000;
+}
+
+#goToDiscord:hover {
+  background-color: #0095d5;
+}
+
+#cancelBtn {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+#cancelBtn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* About Modal */
+.about-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50vw;
+  height: 50vh;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 0 30px #00bfff;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 1000;
+  color: white;
+  padding: 20px 30px;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  overflow-y: auto;
+}
+
+.about-modal.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+/* Close Button */
+.about-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 24px;
+  color: #00bfff;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s;
+}
+
+.about-close-btn:hover {
+  color: #ffffff;
+}
+
+.about-modal-content h2 {
+  font-size: 28px;
+  margin-bottom: 16px;
+  color: #00bfff;
+}
+
+.about-modal-content p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #f0f0f0;
+  margin-bottom: 12px;
+}
+
+/* Play Modal */
+#playModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  max-width: 1000px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 0 25px #00bfff;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+  color: white;
+  user-select: none;
+}
+
+#playModal.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+  user-select: auto;
+}
+
+/* Play Modal Body */
+.play-modal-body {
+  padding: 20px;
+}
+
+/* Инструкция */
+.instruction {
+  padding: 20px;
+  background: rgba(30, 30, 30, 0.8);
+  border-radius: 12px;
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.instruction h2 {
+  margin-bottom: 12px;
+  font-size: 24px;
+}
+
+.instruction ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.instruction ul li {
+  margin-bottom: 6px;
+}
+
+/* Блоки для скачивания */
+.download-blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+/* Общий стиль блока */
+.download-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: rgba(20, 20, 20, 0.8);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0, 191, 255, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.download-block:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.6);
+}
+
+.download-block img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+}
+
+.download-block .block-content {
+  padding: 16px;
+  flex: 1;
+}
+
+.download-block h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #00bfff;
+}
+
+.download-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background: #00bfff;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.download-btn:hover {
+  background: #0095d5;
+}
+
+/* Preset block на 2 колонки */
+.download-block.preset {
+  grid-column: span 2;
+}
+
+/* TopBar PlayModal */
+#playModal .modal-topbar {
+  height: 40px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 16px;
+  color: #00bfff;
+  user-select: none;
+}
+
+/* Кнопка закрытия */
+#playModal .close-btn {
+  font-size: 24px;
+  color: #00bfff;
+  cursor: pointer;
+  line-height: 1;
+}

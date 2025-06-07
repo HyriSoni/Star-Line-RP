@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Инструкция Star Line — Arma 3</title>
+  <style>
+    /* Фон с блюром и затемнением */
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background: url('your-image.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+      color: white;
+    }
+    /* Затемнение и блюр по всему экрану */
+    .backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1;
+    }
+
+    /* Окно в стиле macOS */
+    .mac-window {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90vw;
+      max-width: 900px;
+      max-height: 80vh;
+      background: rgba(20, 20, 20, 0.8);
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+      display: flex;
+      flex-direction: column;
+      z-index: 2;
+      user-select: text;
+    }
+
+    /* Верхняя панель (Topbar) */
+    .mac-window .topbar {
+      height: 36px;
+      background: rgba(30, 30, 30, 0.9);
+      border-top-left-radius: 14px;
+      border-top-right-radius: 14px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      color: #ddd;
+      font-weight: 600;
+      font-size: 15px;
+      -webkit-app-region: drag;
+    }
+
+    /* Кнопки macOS слева */
+    .mac-window .topbar .buttons {
+      display: flex;
+      gap: 10px;
+      margin-right: 12px;
+    }
+
+    /* Кнопки кругляшки */
+    .button-close, .button-minimize, .button-maximize {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      -webkit-app-region: no-drag;
+      box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+    }
+    .button-close {
+      background: #ff605c;
+    }
+    .button-minimize {
+      background: #ffbd44;
+    }
+    .button-maximize {
+      background: #00ca56;
+    }
+
+    /* Заголовок по центру */
+    .mac-window .topbar .title {
+      flex-grow: 1;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Кнопка закрытия окна (крестик) справа */
+    .close-x {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ccc;
+      cursor: pointer;
+      user-select: none;
+      -webkit-app-region: no-drag;
+      transition: color 0.2s ease;
+    }
+    .close-x:hover {
+      color: #ff5c5c;
+    }
+
+    /* Содержимое окна */
+    .mac-window .content {
+      padding: 20px 30px;
+      overflow-y: auto;
+      flex-grow: 1;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #eee;
+      user-select: text;
+    }
+
+    /* Скролл стиль для вебкитов */
+    .mac-window .content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .mac-window .content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .mac-window .content::-webkit-scrollbar-thumb {
+      background-color: rgba(255,255,255,0.15);
+      border-radius: 4px;
+    }
+    .mac-window .content::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(255,255,255,0.3);
+    }
+
+    /* Ссылки */
+    a {
+      color: #4eaaff;
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #82c7ff;
+    }
+
+    /* Стили для блоков загрузки */
+    .download-blocks {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .download-item {
+      background: rgba(255 255 255 / 0.1);
+      border: 1px solid rgba(255 255 255 / 0.2);
+      border-radius: 10px;
+      padding: 15px 20px;
+      flex: 1 1 250px;
+      max-width: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #eee;
+      user-select: none;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+    }
+    .download-item:hover {
+      background: rgba(78,170,255,0.1);
+    }
+    .download-item p {
+      margin: 0 0 10px;
+      font-weight: 600;
+      text-align: center;
+    }
+.download-button {
+  background: #4eaaff;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  box-shadow: 0 4px 8px rgba(78, 170, 255, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.download-button:hover {
+  background: #3a8dd9;
+  box-shadow: 0 6px 12px rgba(58, 141, 217, 0.6);
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="backdrop"></div>
+
+  <div class="mac-window" role="dialog" aria-modal="true" aria-labelledby="windowTitle">
+    <div class="topbar">
+      <div class="buttons">
+        <div class="button-close" title="Закрыть"></div>
+        <div class="button-minimize" title="Свернуть"></div>
+        <div class="button-maximize" title="Развернуть"></div>
+      </div>
+      <div class="title" id="windowTitle">Инструкция по подключению</div>
+      <div class="close-x" id="closeBtn" title="Вернуться назад">&times;</div>
+    </div>
+<div class="content">
+  <h2>1. Что нужно для старта?</h2>
+  <p>Лицензионная копия Arma 3 — без неё играть нельзя.</p>
+  <p>Правила сервера и Discord — важно прочитать, чтобы играть честно и весело.</p>
+  <p>TeamSpeak 3 + Task Force Radio (TFAR) — для общения в игре.</p>
+  <p>Моды из нашего пресета — чтобы все были на одной волне.</p>
+
+  <h2>2. Настрой позывной</h2>
+  <p>Твой позывной — это твой игровой «ник» на сервере и в голосовом чате.</p>
+  <p><b>Формат:</b><br>[RS] &lt;твой номер&gt; &lt;Имя&gt;<br>
+  <b>Пример:</b><br>[RS] 2233 Corsar</p>
+  <ul>
+    <li>Используй латиницу (английские буквы).</li>
+    <li>Имя с заглавной буквы.</li>
+    <li>Не начинай номер с 01.</li>
+  </ul>
+
+  <h2>3. Получи роль игрока</h2>
+  <p>После настройки позывного зайди в Discord в канал <b>#запрос-роли</b> и попроси назначить тебе роль «Игрок».</p>
+
+  <h2>4. Установка TeamSpeak и TFAR</h2>
+  <ul>
+    <li>Скачай и установи TeamSpeak 3 версии 3.1.10–3.3.0 (рекомендуем 3.3.0).</li>
+    <li>Запусти плагин Task Force Radio, который находится по пути:<br>
+      <code>Arma 3/!Workshop/@task_force_radio/teamspeak/</code>
+    </li>
+    <li>Открой TeamSpeak → Инструменты → Параметры → Аддоны → убедись, что TFAR активен.</li>
+    <li>Подключись к нашему голосовому серверу:<br>
+      Адрес: <b>starlinestarwars.ts3.im</b><br>
+      Ник: твой позывной.
+    </li>
+  </ul>
+  <p>Если что-то непонятно — пиши в Discord, всегда поможем!</p>
+  <p><b>Всё просто — ждем тебя в игре!</b></p>
+
+  <h2>5. Подключение к серверу Arma 3</h2>
+  <p>Используй следующие данные для подключения к серверу:</p>
+  <ul>
+    <li><b>IP сервера:</b> 92.38.222.26</li>
+    <li><b>Порт сервера:</b> 3016</li>
+  </ul>
+
+  <hr style="margin: 20px 0; border-color: rgba(255,255,255,0.2);">
+
+  <h2>Полезные файлы для скачивания</h2>
+  <div class="download-blocks">
+    <div class="download-item">
+      <p><b>TeamSpeak 3 Client 3.3.0 (64-bit)</b></p>
+      <a href="https://files.teamspeak-services.com/releases/client/3.3.0/TeamSpeak3-Client-win64-3.3.0.exe" target="_blank" rel="noopener" class="download-button">Скачать</a>
+    </div>
+    <div class="download-item">
+      <p><b>Task Force Radio (TFAR) плагин</b></p>
+      <a href="https://github.com/michail-nikolaev/task-force-arma-3-radio/releases/download/0.9.12/task_force_radio.ts3_plugin" target="_blank" rel="noopener" class="download-button">Скачать</a>
+    </div>
+    <div class="download-item">
+      <p><b>Пресет модов для Arma 3</b></p>
+      <a href="https://example.com/arma3-mod-preset.zip" target="_blank" rel="noopener" class="download-button">Скачать</a>
+    </div>
+  </div>
+</div>
+
+  <script>
+    const closeBtn = document.getElementById('closeBtn');
+    closeBtn.addEventListener('click', () => {
+      // Возврат на главную страницу
+      window.location.href = 'index.html'; // или нужный тебе URL
+    });
+  </script>
+</body>
+</html>
